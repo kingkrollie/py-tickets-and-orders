@@ -18,7 +18,7 @@ def create_order(tickets: list, username: str, date: str = None) -> None:
     if date:
         parsed_date = parse_datetime(date)
         Order.objects.filter(id=order.id).update(created_at=parsed_date)
-        order.created_at = parsed_date
+
     for ticket in tickets:
         Ticket.objects.create(
             row=ticket["row"],
