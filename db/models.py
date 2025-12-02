@@ -62,11 +62,12 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name="orders"
     )
 
     def __str__(self) -> str:
-        return f"{self.created_at.date()} {self.created_at.time()}"
+        return f"{self.created_at.strftime('%Y-%m-%d %H:%M:%S')}"
 
     class Meta:
         ordering = ["-created_at"]
@@ -75,7 +76,8 @@ class Order(models.Model):
 class Ticket(models.Model):
     movie_session = models.ForeignKey(
         to=MovieSession,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name="tickets"
     )
     order = models.ForeignKey(to=Order, on_delete=models.CASCADE)
     row = models.IntegerField()
